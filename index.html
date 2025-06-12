@@ -4,58 +4,24 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Кэшбэк Акции</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <style>
-        /* --- 1. Цветовая палитра и переменные --- */
         :root {
-            --bg-color: #f4f7f9;
-            --header-bg: linear-gradient(135deg, #37474f, #263238);
-            --card-bg: #ffffff;
-            --text-color: #263238;
-            --text-secondary-color: #5f6368;
-            --primary-color: #007BFF;
-            --shadow-color: rgba(0, 0, 0, 0.08);
-            --border-color: #e0e0e0;
-            --green-accent: #27ae60;
-            --border-radius: 12px; /* Увеличен радиус скругления */
-            
-            /* Цвета банков для полосок на карточках */
-            --alfa-color: #EF3124;
-            --vtb-color: #0A4689;
-            --tbank-color: #F9DF55;
+            --primary-color: #3498db;
+            --secondary-color: #2c3e50;
+            --background-color: #ecf0f1;
+            --card-background: #ffffff;
+            --text-color: #333333;
+            --light-gray: #bdc3c7;
+            --border-radius: 8px;
+            --box-shadow: 0 4px 8px rgba(0,0,0,0.1);
         }
-
-        /* Настройки для тёмной темы */
-        @media (prefers-color-scheme: dark) {
-            :root {
-                --bg-color: #121212;
-                --header-bg: #1e1e1e;
-                --card-bg: #1e1e1e;
-                --text-color: #e0e0e0;
-                --text-secondary-color: #a9a9a9;
-                --primary-color: #4dabf7;
-                --shadow-color: rgba(0, 0, 0, 0.5);
-                --border-color: #333333;
-            }
-            .card {
-                border: 1px solid var(--border-color);
-            }
-            .search-icon {
-                color: var(--text-secondary-color) !important;
-            }
-        }
-        /* --- Конец секции с темами --- */
 
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
             margin: 0;
-            background-color: var(--bg-color);
+            background-color: var(--background-color);
             color: var(--text-color);
             line-height: 1.6;
-            transition: background-color 0.3s, color 0.3s;
         }
 
         .container {
@@ -65,31 +31,29 @@
         }
 
         header {
-            background: var(--header-bg);
+            background-color: var(--secondary-color);
             color: white;
-            padding: 25px 20px;
+            padding: 20px;
             text-align: center;
-            border-radius: var(--border-radius);
-            margin-bottom: 25px;
+            border-radius: 0 0 var(--border-radius) var(--border-radius);
+            margin-bottom: 20px;
         }
 
         header h1 {
             margin: 0;
             font-size: 2.5em;
-            font-weight: 700;
         }
 
         .filters {
-            background: var(--card-bg);
-            padding: 25px; /* Увеличен внутренний отступ */
+            background: var(--card-background);
+            padding: 20px;
             border-radius: var(--border-radius);
-            box-shadow: 0 4px 12px var(--shadow-color);
-            margin-bottom: 25px;
+            box-shadow: var(--box-shadow);
+            margin-bottom: 20px;
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 25px; /* Увеличен отступ между элементами */
+            gap: 20px;
             align-items: end;
-            transition: background-color 0.3s;
         }
 
         .filter-group, .search-group {
@@ -99,151 +63,233 @@
 
         .filter-group label, .search-group label {
             margin-bottom: 8px;
-            font-weight: 500;
-            font-size: 0.9em;
-            color: var(--text-secondary-color);
+            font-weight: bold;
+            color: var(--secondary-color);
         }
 
-        .filter-group select, .search-group input, button {
-            border-radius: var(--border-radius); /* Применено ко всем кнопкам и полям */
-        }
-        
         .filter-group select, .search-group input {
             width: 100%;
             padding: 10px;
-            border: 1px solid var(--border-color);
+            border: 1px solid var(--light-gray);
+            border-radius: var(--border-radius);
             font-size: 1em;
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            transition: border-color 0.3s, background-color 0.3s;
+        }
+        
+        .bank-filter {
+            grid-column: 1 / -1;
         }
 
-        .search-group {
-            position: relative;
+        .bank-checkboxes {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 5px;
         }
 
-        .search-icon {
-            position: absolute;
-            top: 40px;
-            left: 12px;
-            color: #9e9e9e;
+        .bank-checkboxes label {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            font-weight: normal;
         }
-
-        #search {
-            padding-left: 35px;
-            max-width: 170px;
+        
+        .bank-checkboxes input {
+            margin-right: 5px;
         }
         
         #reset-filters {
-            background-color: var(--primary-color);
-            color: white;
-            font-weight: bold;
             padding: 10px 20px;
             border: none;
+            background-color: var(--primary-color);
+            color: white;
+            border-radius: var(--border-radius);
             cursor: pointer;
             font-size: 1em;
             transition: background-color 0.3s;
             height: 42px;
         }
 
+        #reset-filters:hover {
+            background-color: #2980b9;
+        }
+        
         #initial-message {
             text-align: center;
             padding: 40px;
-            color: var(--text-secondary-color);
+            color: #7f8c8d;
             font-size: 1.2em;
         }
 
         #cards-container {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 25px; /* Увеличен отступ */
+            gap: 20px;
+        }
+
+        .flash-effect {
+            animation: flash 0.7s ease-out;
+        }
+
+        @keyframes flash {
+            0% { opacity: 0; }
+            50% { opacity: 1; }
+            100% { opacity: 1; }
         }
 
         .card {
-            background: var(--card-bg);
+            background: var(--card-background);
             border-radius: var(--border-radius);
-            box-shadow: 0 4px 12px var(--shadow-color);
+            box-shadow: var(--box-shadow);
             padding: 20px;
             cursor: pointer;
             transition: transform 0.2s, box-shadow 0.2s;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            border-top: 4px solid var(--border-color);
-            opacity: 0;
         }
-        
-        .card.alfa { border-top-color: var(--alfa-color); }
-        .card.vtb { border-top-color: var(--vtb-color); }
-        .card.tbank { border-top-color: var(--tbank-color); }
 
         .card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 8px 16px var(--shadow-color);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
         }
         
-        .card-content p { margin: 0 0 10px; word-wrap: break-word; }
+        .card-content p {
+            margin: 0 0 10px;
+            word-wrap: break-word;
+        }
+
         .card-content p:first-child { font-weight: bold; color: var(--primary-color); }
-        .card-content p:nth-child(2) { font-size: 1.2em; font-weight: 700; }
-        .card-content p:nth-child(3) { font-size: 1.3em; font-weight: bold; color: var(--green-accent); }
-        .card-content p:last-child { color: var(--text-secondary-color); font-size: 0.9em; margin-bottom: 0; }
+        .card-content p:nth-child(2) { font-size: 1.1em; font-weight: 500; }
+        .card-content p:nth-child(3) { font-size: 1.2em; font-weight: bold; color: #27ae60; }
+        .card-content p:last-child { color: #7f8c8d; font-size: 0.9em; margin-bottom: 0; }
 
-        @keyframes card-fly-in {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        .card-animated {
-            animation: card-fly-in 0.5s ease-out forwards;
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.5);
         }
 
-        @keyframes slide-in-from-bottom {
-            from { opacity: 0; transform: translateY(50px) scale(0.95); }
-            to { opacity: 1; transform: translateY(0) scale(1); }
-        }
-
-        .modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; overflow: auto; background-color: rgba(0,0,0,0.6); }
         .modal-content {
-            background-color: var(--card-bg);
-            animation: slide-in-from-bottom 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            background-color: var(--card-background);
             margin: 5% auto;
             padding: 30px;
             border-radius: var(--border-radius);
             width: 90%;
             max-width: 700px;
             position: relative;
+            animation: fadeIn 0.3s;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .modal-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
         }
         
-        .modal-header h2 { font-size: 2em; }
-        .modal-body p { margin: 0 0 15px; }
-        .modal-body strong { color: var(--primary-color); display: block; margin-bottom: 5px; font-weight: 500; }
-        .modal-body a { color: var(--primary-color); text-decoration: none; font-weight: bold; }
-        .modal-body a:hover { text-decoration: underline; }
-        .modal-body .how-to { white-space: pre-wrap; background: var(--bg-color); padding: 15px; border-radius: var(--border-radius); }
-        .back-arrow { font-size: 2em; font-weight: bold; cursor: pointer; margin-right: 20px; color: var(--primary-color); }
-        .modal-header { display: flex; align-items: center; margin-bottom: 20px; }
+        .back-arrow {
+            font-size: 2em;
+            font-weight: bold;
+            cursor: pointer;
+            margin-right: 20px;
+            color: var(--primary-color);
+        }
+        
+        .modal-header h2 {
+            margin: 0;
+            font-size: 1.8em;
+            color: var(--secondary-color);
+        }
+        
+        .modal-body p {
+            margin: 0 0 15px;
+        }
+        
+        .modal-body strong {
+            color: var(--secondary-color);
+            display: block;
+            margin-bottom: 5px;
+        }
+        
+        .modal-body a {
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+        
+        .modal-body a:hover {
+            text-decoration: underline;
+        }
+        
+        .modal-body .how-to {
+            white-space: pre-wrap;
+        }
+        
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2em;
+            }
+            .filters {
+                grid-template-columns: 1fr;
+            }
+        }
+
     </style>
 </head>
 <body>
 
     <div class="container">
-        <header><h1>Кэшбэкиус</h1></header>
+        <header>
+            <h1>Витрина Кэшбэка</h1>
+        </header>
 
         <div class="filters">
-            
-            <div class="filter-group"><label for="category-filter">Категория</label><select id="category-filter"><option value="">Все</option></select></div>
-            <div class="filter-group"><label for="brand-filter">Бренд</label><select id="brand-filter"><option value="">Все</option></select></div>
-            <div class="filter-group"><label for="cashback-filter">Размер кэшбэка</label><select id="cashback-filter"><option value="">Все</option></select></div>
-<div class="search-group">
+            <div class="search-group">
                 <label for="search">Поиск</label>
-                <i class="fa-solid fa-magnifying-glass search-icon"></i>
-                <input type="text" id="search" placeholder="...">
+                <input type="text" id="search" placeholder="Поиск по всем полям...">
             </div>
-            <div class="bank-filter" style="grid-column: 1 / -1;"><label>Банк</label><div id="bank-filter-checkboxes" class="bank-checkboxes"></div></div>
-            <div class="filter-group"><button id="reset-filters">Сбросить</button></div>
+            <div class="filter-group">
+                <label for="category-filter">Категория</label>
+                <select id="category-filter">
+                    <option value="">Все</option>
+                </select>
+            </div>
+            <div class="filter-group">
+                <label for="brand-filter">Бренд</label>
+                <select id="brand-filter">
+                    <option value="">Все</option>
+                </select>
+            </div>
+             <div class="filter-group">
+                <label for="cashback-filter">Размер кэшбэка</label>
+                <select id="cashback-filter">
+                    <option value="">Все</option>
+                </select>
+            </div>
+            <div class="bank-filter">
+                <label>Банк</label>
+                <div id="bank-filter-checkboxes" class="bank-checkboxes">
+                </div>
+            </div>
+            <div class="filter-group">
+                <button id="reset-filters">Сбросить все фильтры</button>
+            </div>
         </div>
 
-        <div id="initial-message"><p>Выберите фильтр, чтобы увидеть акции</p></div>
-        <div id="cards-container"></div>
+        <div id="initial-message">
+            <p>Выберите фильтр, чтобы увидеть акции</p>
+        </div>
+        <div id="cards-container">
+        </div>
     </div>
     
     <div id="details-modal" class="modal">
@@ -252,13 +298,26 @@
                 <span class="back-arrow" onclick="closeModal()">&#8592;</span>
                 <h2 id="modal-brand"></h2>
             </div>
-            <div id="modal-body" class="modal-body"></div>
+            <div class="modal-body">
+                <p><strong>Банк:</strong> <span id="modal-bank"></span></p>
+                <p><strong>Карта:</strong> <span id="modal-card"></span></p>
+                <p><strong>Категория:</strong> <span id="modal-category"></span></p>
+                <p><strong>Размер кэшбэка/скидки:</strong> <span id="modal-cashback-size"></span></p>
+                <p><strong>Условия:</strong> <span id="modal-conditions"></span></p>
+                <p><strong>Даты проведения акции:</strong> <span id="modal-dates"></span></p>
+                <p><strong>Промокод:</strong> <span id="modal-promocode"></span></p>
+                <p><strong>Макс. кэшбэк/скидка в руб:</strong> <span id="modal-max-cashback"></span></p>
+                <p><strong>Дополнительная информация:</strong> <span id="modal-additional-info"></span></p>
+                <p><strong>О партнере:</strong> <span id="modal-about-partner"></span></p>
+                <p><strong>Сайт:</strong> <a id="modal-site" href="#" target="_blank" rel="noopener noreferrer"></a></p>
+                <p><strong>Как получить кэшбэк:</strong> <span id="modal-how-to" class="how-to"></span></p>
+            </div>
         </div>
     </div>
 
     <script>
         const jsonData = [
-              {
+  {
     "Банк": "Альфа-Банк",
     "Карта": "Альфа Карта",
     "Категория": "Продукты",
@@ -5586,6 +5645,7 @@
     "Сайт": "https://www.litres.ru/landing/tbank20/",
     "О партнере": "ЛитРес — библиотека электронных и аудиокниг на русском и иностранных языках. Чтение и прослушивание на любых устройствах. Каждый месяц добавляется 5 тысяч новых книг."
   }
+
             ];
 
         const cardsContainer = document.getElementById('cards-container');
@@ -5597,34 +5657,31 @@
         const cashbackFilter = document.getElementById('cashback-filter');
         const resetBtn = document.getElementById('reset-filters');
         const modal = document.getElementById('details-modal');
-        const modalBody = document.getElementById('modal-body');
-        const modalBrand = document.getElementById('modal-brand');
-        
-        let currentFilters = { search: '', banks: [], category: '', brand: '', cashback: '' };
+
+        let currentFilters = {
+            search: '',
+            banks: [],
+            category: '',
+            brand: '',
+            cashback: ''
+        };
         let hasFiltered = false;
 
         function displayCards(data) {
             cardsContainer.innerHTML = '';
+            cardsContainer.classList.remove('flash-effect');
+
             if (!hasFiltered) {
                 initialMessage.style.display = 'block';
                 return;
             }
+            
             initialMessage.style.display = 'none';
 
             if (data.length > 0) {
-                data.forEach((item, index) => {
+                data.forEach((item) => {
                     const card = document.createElement('div');
-                    card.classList.add('card', 'card-animated');
-                    
-                    if (item['Банк'].toLowerCase().includes('альфа')) {
-                        card.classList.add('alfa');
-                    } else if (item['Банк'].toLowerCase().includes('втб')) {
-                        card.classList.add('vtb');
-                    } else if (item['Банк'].toLowerCase().includes('т-банк') || item['Банк'].toLowerCase().includes('тинькофф')) { // Добавьте эту строку
-    card.classList.add('tbank'); // Добавьте эту строку
-}
-                    card.style.animationDelay = `${index * 0.05}s`;
-
+                    card.classList.add('card');
                     card.innerHTML = `
                         <div class="card-content">
                             <p>${item['Банк']}</p>
@@ -5637,47 +5694,181 @@
                     cardsContainer.appendChild(card);
                 });
             } else {
-                 cardsContainer.innerHTML = '<p style="text-align: center; grid-column: 1 / -1; color: var(--text-secondary-color);">Нет акций, соответствующих вашим критериям.</p>';
+                 cardsContainer.innerHTML = '<p style="text-align: center; grid-column: 1 / -1; color: #7f8c8d;">Нет акций, соответствующих вашим критериям.</p>';
             }
+             void cardsContainer.offsetWidth; // Trigger reflow to restart animation
+            cardsContainer.classList.add('flash-effect');
         }
 
+        function populateSelect(selectElement, options, selectedValue = '') {
+            const currentValue = selectElement.value;
+            selectElement.innerHTML = '<option value="">Все</option>';
+
+            const isCategoryClick = selectElement.id === 'category-filter' && selectElement.dataset.clicked === 'true';
+
+            options.forEach(option => {
+                const opt = document.createElement('option');
+                opt.value = option;
+                opt.textContent = option;
+                
+                if (isCategoryClick && option === selectedValue) {
+                   opt.style.fontWeight = 'bold';
+                }
+                selectElement.appendChild(opt);
+            });
+            selectElement.value = selectedValue || currentValue;
+        }
+
+        function populateAllFilters(data) {
+            const banks = [...new Set(data.map(item => item['Банк']))].sort();
+            const categories = [...new Set(data.map(item => item['Категория']))].sort();
+            const brands = [...new Set(data.map(item => item['Компания/бренд']))].sort();
+            const cashbacks = [...new Set(data.map(item => item['Размер кэшбека/скидки']))].sort();
+
+            bankCheckboxesContainer.innerHTML = banks.map(bank => `
+                <label>
+                    <input type="checkbox" name="bank" value="${bank}"> ${bank}
+                </label>
+            `).join('');
+            
+            populateSelect(categoryFilter, categories);
+            populateSelect(brandFilter, brands);
+            populateSelect(cashbackFilter, cashbacks);
+        }
+
+        function applyFilters() {
+            let filteredData = [...jsonData];
+            
+            const searchActive = currentFilters.search !== '';
+            const banksActive = currentFilters.banks.length > 0;
+            const categoryActive = currentFilters.category !== '';
+            const brandActive = currentFilters.brand !== '';
+            const cashbackActive = currentFilters.cashback !== '';
+
+            hasFiltered = searchActive || banksActive || categoryActive || brandActive || cashbackActive;
+
+            if (banksActive) {
+                filteredData = filteredData.filter(item => currentFilters.banks.includes(item['Банк']));
+            }
+            if (categoryActive) {
+                filteredData = filteredData.filter(item => item['Категория'] === currentFilters.category);
+            }
+            if (brandActive) {
+                filteredData = filteredData.filter(item => item['Компания/бренд'] === currentFilters.brand);
+            }
+            if (cashbackActive) {
+                filteredData = filteredData.filter(item => item['Размер кэшбека/скидки'] === currentFilters.cashback);
+            }
+
+            // Update dependent filters BEFORE search filtering
+            updateDependentFilters(filteredData);
+            
+            if (searchActive) {
+                const searchTerm = currentFilters.search.toLowerCase();
+                filteredData = filteredData.filter(item =>
+                    Object.values(item).some(val =>
+                        String(val).toLowerCase().includes(searchTerm)
+                    )
+                );
+            }
+            
+            displayCards(filteredData);
+        }
+
+        function updateDependentFilters(data) {
+            const availableCategories = [...new Set(data.map(item => item['Категория']))].sort();
+            const availableBrands = [...new Set(data.map(item => item['Компания/бренд']))].sort();
+            const availableCashbacks = [...new Set(data.map(item => item['Размер кэшбека/скидки']))].sort();
+
+            populateSelect(categoryFilter, availableCategories, currentFilters.category);
+            populateSelect(brandFilter, availableBrands, currentFilters.brand);
+            populateSelect(cashbackFilter, availableCashbacks, currentFilters.cashback);
+        }
+
+        function handleFilterChange() {
+            currentFilters.search = searchInput.value;
+            currentFilters.category = categoryFilter.value;
+            currentFilters.brand = brandFilter.value;
+            currentFilters.cashback = cashbackFilter.value;
+            currentFilters.banks = Array.from(document.querySelectorAll('input[name="bank"]:checked')).map(cb => cb.value);
+            
+            applyFilters();
+        }
+
+        function resetFilters() {
+            hasFiltered = false;
+            currentFilters = { search: '', banks: [], category: '', brand: '', cashback: '' };
+            
+            searchInput.value = '';
+            document.querySelectorAll('input[name="bank"]:checked').forEach(cb => cb.checked = false);
+            
+            populateAllFilters(jsonData);
+            displayCards([]);
+        }
+        
         function showDetails(item) {
-            modalBrand.textContent = item['Компания/бренд'] || 'Нет данных';
-            let modalHTML = `
-                <p><strong><i class="fa-solid fa-building-columns"></i> Банк:</strong> <span >${item['Банк'] || 'Нет данных'}</span></p>
-                <p><strong><i class="fa-regular fa-credit-card"></i> Карта:</strong> <span >${item['Карта'] || 'Нет данных'}</span></p>
-                <p><strong><i class="fa-solid fa-tags"></i> Категория:</strong> <span >${item['Категория'] || 'Нет данных'}</span></p>
-                <p><strong><i class="fa-solid fa-percent"></i> Размер кэшбэка/скидки:</strong> <span >${item['Размер кэшбека/скидки'] || 'Нет данных'}</span></p>
-                <p><strong><i class="fa-regular fa-calendar-check"></i> Даты проведения акции:</strong> <span >${item['Даты проведения акции'] || 'Нет данных'}</span></p>
-                ${item['Условия (если указаны)'] ? `<p><strong><i class="fa-solid fa-clipboard-list"></i> Условия:</strong> <span>${item['Условия (если указаны)']}</span></p>` : ''}
-                ${item['Промокод (если указан)'] ? `<p><strong><i class="fa-solid fa-ticket"></i> Промокод:</strong> <span>${item['Промокод (если указан)']}</span></p>` : ''}
-                ${item['Сайт'] ? `<p><strong><i class="fa-solid fa-globe"></i> Сайт:</strong> <a href="${item['Сайт']}" target="_blank" rel="noopener noreferrer">${item['Сайт']}</a></p>` : ''}
-                <p><strong><i class="fa-solid fa-circle-question"></i> Как получить кэшбэк:</strong></p>
-                <div class="how-to">${item['Как получить кэшбэк'] || 'Нет данных'}</div>
-            `;
-            modalBody.innerHTML = modalHTML;
+            document.getElementById('modal-brand').textContent = item['Компания/бренд'] || 'Нет данных';
+            document.getElementById('modal-bank').textContent = item['Банк'] || 'Нет данных';
+            document.getElementById('modal-card').textContent = item['Карта'] || 'Нет данных';
+            document.getElementById('modal-category').textContent = item['Категория'] || 'Нет данных';
+            document.getElementById('modal-cashback-size').textContent = item['Размер кэшбека/скидки'] || 'Нет данных';
+            document.getElementById('modal-conditions').textContent = item['Условия (если указаны)'] || 'Нет данных';
+            document.getElementById('modal-dates').textContent = item['Даты проведения акции'] || 'Нет данных';
+            document.getElementById('modal-promocode').textContent = item['Промокод (если указан)'] || 'Не требуется';
+            document.getElementById('modal-max-cashback').textContent = item['Макс. кэшбек/скидка в руб'] || 'Нет данных';
+            document.getElementById('modal-additional-info').textContent = item['Дополнительная информация (если есть)'] || 'Нет';
+            document.getElementById('modal-about-partner').textContent = item['О партнере'] || 'Нет данных';
+            document.getElementById('modal-how-to').textContent = item['Как получить кэшбэк'] || 'Нет данных';
+            
+            const siteLink = document.getElementById('modal-site');
+            if(item['Сайт']) {
+                siteLink.href = item['Сайт'];
+                siteLink.textContent = item['Сайт'];
+                siteLink.parentElement.style.display = 'block';
+            } else {
+                siteLink.parentElement.style.display = 'none';
+            }
+            
             modal.style.display = 'block';
         }
 
-        function populateSelect(selectElement, options, selectedValue = '') {const currentValue = selectElement.value; selectElement.innerHTML = '<option value="">Все</option>'; const isCategoryClick = selectElement.id === 'category-filter' && selectElement.dataset.clicked === 'true'; options.forEach(option => {const opt = document.createElement('option'); opt.value = option; opt.textContent = option; if (isCategoryClick && option === selectedValue) {opt.style.fontWeight = 'bold';} selectElement.appendChild(opt);}); selectElement.value = selectedValue || currentValue;}
-        function populateAllFilters(data) {const banks = [...new Set(data.map(item => item['Банк']))].sort(); const categories = [...new Set(data.map(item => item['Категория']))].sort(); const brands = [...new Set(data.map(item => item['Компания/бренд']))].sort(); const cashbacks = [...new Set(data.map(item => item['Размер кэшбека/скидки']))].sort(); bankCheckboxesContainer.innerHTML = banks.map(bank => `<label style="display: flex; align-items: center; cursor: pointer; font-weight: normal;"><input type="checkbox" name="bank" value="${bank}" style="margin-right: 8px;"> ${bank}</label>`).join(''); populateSelect(categoryFilter, categories); populateSelect(brandFilter, brands); populateSelect(cashbackFilter, cashbacks);}
-        function applyFilters() {let filteredData = [...jsonData]; const searchActive = currentFilters.search !== ''; const banksActive = currentFilters.banks.length > 0; const categoryActive = currentFilters.category !== ''; const brandActive = currentFilters.brand !== ''; const cashbackActive = currentFilters.cashback !== ''; hasFiltered = searchActive || banksActive || categoryActive || brandActive || cashbackActive; if (banksActive) {filteredData = filteredData.filter(item => currentFilters.banks.includes(item['Банк']));} if (categoryActive) {filteredData = filteredData.filter(item => item['Категория'] === currentFilters.category);} if (brandActive) {filteredData = filteredData.filter(item => item['Компания/бренд'] === currentFilters.brand);} if (cashbackActive) {filteredData = filteredData.filter(item => item['Размер кэшбека/скидки'] === currentFilters.cashback);} updateDependentFilters(filteredData); if (searchActive) {const searchTerm = currentFilters.search.toLowerCase(); filteredData = filteredData.filter(item => Object.values(item).some(val => String(val).toLowerCase().includes(searchTerm)));} displayCards(filteredData);}
-        function updateDependentFilters(data) {const availableCategories = [...new Set(data.map(item => item['Категория']))].sort(); const availableBrands = [...new Set(data.map(item => item['Компания/бренд']))].sort(); const availableCashbacks = [...new Set(data.map(item => item['Размер кэшбека/скидки']))].sort(); populateSelect(categoryFilter, availableCategories, currentFilters.category); populateSelect(brandFilter, availableBrands, currentFilters.brand); populateSelect(cashbackFilter, availableCashbacks, currentFilters.cashback);}
-        function handleFilterChange() {currentFilters.search = searchInput.value; currentFilters.category = categoryFilter.value; currentFilters.brand = brandFilter.value; currentFilters.cashback = cashbackFilter.value; currentFilters.banks = Array.from(document.querySelectorAll('input[name="bank"]:checked')).map(cb => cb.value); applyFilters();}
+        function closeModal() {
+            modal.style.display = 'none';
+        }
         
-        function resetFilters() {hasFiltered = false; currentFilters = { search: '', banks: [], category: '', brand: '', cashback: '' }; searchInput.value = ''; document.querySelectorAll('input[name="bank"]:checked').forEach(cb => cb.checked = false); 
-        categoryFilter.value = '';
-        brandFilter.value = '';
-        cashbackFilter.value = '';
-        populateAllFilters(jsonData); 
-        displayCards([]);}
+        // --- Event Listeners ---
+        
+        searchInput.addEventListener('input', handleFilterChange);
+        bankCheckboxesContainer.addEventListener('change', handleFilterChange);
+        categoryFilter.addEventListener('change', handleFilterChange);
+        brandFilter.addEventListener('change', handleFilterChange);
+        cashbackFilter.addEventListener('change', handleFilterChange);
+        resetBtn.addEventListener('click', resetFilters);
+        
+        // Special logic for category filter click
+        categoryFilter.addEventListener('mousedown', () => {
+            if (categoryFilter.value !== '') {
+                const selectedValue = categoryFilter.value;
+                const allCategories = [...new Set(jsonData.map(item => item['Категория']))].sort();
+                categoryFilter.dataset.clicked = 'true';
+                populateSelect(categoryFilter, allCategories, selectedValue);
+            }
+        });
+        categoryFilter.addEventListener('blur', () => {
+             categoryFilter.dataset.clicked = 'false';
+             applyFilters(); // Re-apply smart filters when dropdown is closed
+        });
 
-        function closeModal() {modal.style.display = 'none';}
-        searchInput.addEventListener('input', handleFilterChange); bankCheckboxesContainer.addEventListener('change', handleFilterChange); categoryFilter.addEventListener('change', handleFilterChange); brandFilter.addEventListener('change', handleFilterChange); cashbackFilter.addEventListener('change', handleFilterChange); resetBtn.addEventListener('click', resetFilters);
-        categoryFilter.addEventListener('mousedown', () => {if (categoryFilter.value !== '') {const selectedValue = categoryFilter.value; const allCategories = [...new Set(jsonData.map(item => item['Категория']))].sort(); categoryFilter.dataset.clicked = 'true'; populateSelect(categoryFilter, allCategories, selectedValue);}});
-        categoryFilter.addEventListener('blur', () => {categoryFilter.dataset.clicked = 'false'; applyFilters();});
-        window.addEventListener('click', (event) => {if (event.target == modal) {closeModal();}});
-        populateAllFilters(jsonData); displayCards([]);
+        window.addEventListener('click', (event) => {
+            if (event.target == modal) {
+                closeModal();
+            }
+        });
+        
+        // --- Initial Load ---
+        populateAllFilters(jsonData);
+        displayCards([]);
+
     </script>
 </body>
 </html>
