@@ -25,6 +25,7 @@
             /* Цвета банков для полосок на карточках */
             --alfa-color: #EF3124;
             --vtb-color: #0A4689;
+            --tbank-color: #F9DF55;
         }
 
         /* Настройки для тёмной темы */
@@ -174,7 +175,7 @@
         
         .card.alfa { border-top-color: var(--alfa-color); }
         .card.vtb { border-top-color: var(--vtb-color); }
-
+        .card.tbank { border-top-color: var(--tbank-color); }
 
         .card:hover {
             transform: translateY(-5px);
@@ -5619,7 +5620,9 @@
                         card.classList.add('alfa');
                     } else if (item['Банк'].toLowerCase().includes('втб')) {
                         card.classList.add('vtb');
-                    }
+                    } else if (item['Банк'].toLowerCase().includes('т-банк') || item['Банк'].toLowerCase().includes('тинькофф')) { // Добавьте эту строку
+    card.classList.add('tbank'); // Добавьте эту строку
+}
                     card.style.animationDelay = `${index * 0.05}s`;
 
                     card.innerHTML = `
