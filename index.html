@@ -130,7 +130,7 @@
 
         #search {
             padding-left: 35px;
-            max-width: 170px;
+            max-width: 400px;
         }
         
         #reset-filters {
@@ -228,14 +228,15 @@
         <header><h1>Кэшбэкиус</h1></header>
 
         <div class="filters">
-            <div class="search-group">
+            
+            <div class="filter-group"><label for="category-filter">Категория</label><select id="category-filter"><option value="">Все</option></select></div>
+            <div class="filter-group"><label for="brand-filter">Бренд</label><select id="brand-filter"><option value="">Все</option></select></div>
+            <div class="filter-group"><label for="cashback-filter">Размер кэшбэка</label><select id="cashback-filter"><option value="">Все</option></select></div>
+<div class="search-group">
                 <label for="search">Поиск</label>
                 <i class="fa-solid fa-magnifying-glass search-icon"></i>
                 <input type="text" id="search" placeholder="...">
             </div>
-            <div class="filter-group"><label for="category-filter">Категория</label><select id="category-filter"><option value="">Все</option></select></div>
-            <div class="filter-group"><label for="brand-filter">Бренд</label><select id="brand-filter"><option value="">Все</option></select></div>
-            <div class="filter-group"><label for="cashback-filter">Размер кэшбэка</label><select id="cashback-filter"><option value="">Все</option></select></div>
             <div class="bank-filter" style="grid-column: 1 / -1;"><label>Банк</label><div id="bank-filter-checkboxes" class="bank-checkboxes"></div></div>
             <div class="filter-group"><button id="reset-filters">Сбросить</button></div>
         </div>
