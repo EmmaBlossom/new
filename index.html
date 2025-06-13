@@ -249,14 +249,10 @@
 
     <div class="container">
         <header>
-            <h1>Витрина Кэшбэка</h1>
+            <h1>Кэшбэкиус</h1>
         </header>
 
         <div class="filters">
-            <div class="search-group">
-                <label for="search">Поиск</label>
-                <input type="text" id="search" placeholder="Поиск по всем полям...">
-            </div>
             <div class="filter-group">
                 <label for="category-filter">Категория</label>
                 <select id="category-filter">
@@ -275,11 +271,16 @@
                     <option value="">Все</option>
                 </select>
             </div>
+            <div class="search-group">
+                <label for="search">Поиск</label>
+                <input type="text" id="search" placeholder="Поиск по всем полям...">
+            </div>
             <div class="bank-filter">
                 <label>Банк</label>
                 <div id="bank-filter-checkboxes" class="bank-checkboxes">
                 </div>
             </div>
+            
             <div class="filter-group">
                 <button id="reset-filters">Сбросить все фильтры</button>
             </div>
@@ -5801,6 +5802,10 @@
             
             searchInput.value = '';
             document.querySelectorAll('input[name="bank"]:checked').forEach(cb => cb.checked = false);
+             
+            categoryFilter.value = '';
+            brandFilter.value = '';
+            cashbackFilter.value = '';
             
             populateAllFilters(jsonData);
             displayCards([]);
