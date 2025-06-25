@@ -230,6 +230,11 @@
             text-decoration: underline;
         }
         
+        /* --- правка: фикс цвета текста на кнопке --- */
+.modal-body .open-card-btn {   /* .modal-body + пробел + .open-card-btn */
+    color: #fff;               /* белый текст поверх синего фона */
+}
+
         .modal-body .how-to {
             white-space: pre-wrap;
         }
@@ -320,7 +325,19 @@
         font-size: 1em;
     }
 }
-
+/* ▼ стиль для кнопки в модальном окне ▼ */
+.open-card-btn{
+  display:inline-block;
+  background-color:var(--primary-color);
+  color:#fff;
+  padding:12px 24px;
+  border-radius:var(--border-radius);
+  text-decoration:none;
+  font-weight:bold;
+  transition:background-color .3s;
+}
+.open-card-btn:hover{background-color:#2980b9;}
+/* ▲ конец вставки ▲ */
     </style>
 
 <!-- Yandex.Metrika counter -->
@@ -423,6 +440,16 @@
                 <p><strong>О партнере:</strong> <span id="modal-about-partner"></span></p>
                 <p><strong>Сайт:</strong> <a id="modal-site" href="#" target="_blank" rel="noopener noreferrer"></a></p>
                 <p><strong>Как получить кэшбэк:</strong> <span id="modal-how-to" class="how-to"></span></p>
+                <!-- ▼ вставили кнопку-ссылку ▼ -->
+<p style="text-align:center; margin-top:25px;">
+  <a id="open-card-btn" class="open-card-btn"
+     href="#"
+     target="_blank" rel="noopener noreferrer"
+     style="display:none;"> <!-- скрыта по умолчанию -->
+     Открыть карту банка и получить бонусные рубли
+  </a>
+</p>
+<!-- ▲ конец вставки ▲ -->
             </div>
         </div>
     </div>
@@ -6792,7 +6819,13 @@
         const cashbackFilter = document.getElementById('cashback-filter');
         const resetBtn = document.getElementById('reset-filters');
         const modal = document.getElementById('details-modal');
-
+/* ▼ ссылки для кнопки «Открыть карту…» ▼ */
+const bankLinks = {
+  "Альфа-Банк": "https://alfa.me/4Zz28B",
+  "ВТБ":        "https://vtb.ru/l/ab0138h7",
+  "Т-Банк":     "http://www.tbank.ru/baf/AUDLSGhqV4u"
+};
+/* ▲ конец вставки ▲ */
         let currentFilters = {
             search: '',
             banks: [],
@@ -6977,7 +7010,17 @@
             } else {
                 siteLink.parentElement.style.display = 'none';
             }
-            
+            /* ▼ логика кнопки «Открыть карту…» ▼ */
+const openCardBtn = document.getElementById('open-card-btn');
+const bankLink = bankLinks[item['Банк']];      // ищем ссылку по банку
+
+if (bankLink) {                                // если ссылка найдена
+  openCardBtn.href = bankLink;
+  openCardBtn.style.display = 'inline-block';  // показать кнопку
+} else {
+  openCardBtn.style.display = 'none';          // скрыть, если банк не в списке
+}
+/* ▲ конец вставки ▲ */
             modal.style.display = 'block';
         }
 
