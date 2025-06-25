@@ -7003,10 +7003,12 @@
                 populateSelect(categoryFilter, allCategories, selectedValue);
             }
         });
+        /*
         categoryFilter.addEventListener('blur', () => {
              categoryFilter.dataset.clicked = 'false';
              applyFilters(); // Re-apply smart filters when dropdown is closed
         });
+        */
 
         window.addEventListener('click', (event) => {
             if (event.target == modal) {
