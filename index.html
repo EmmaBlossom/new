@@ -243,6 +243,84 @@
             }
         }
 
+.intro-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: var(--card-background);
+    padding: 30px 20px;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.intro-text {
+    flex: 1 1 300px;
+    max-width: 600px;
+}
+
+.intro-text h2 {
+    font-size: 2em;
+    color: var(--primary-color);
+    margin-bottom: 10px;
+}
+
+.intro-text p {
+    font-size: 1.1em;
+    margin-bottom: 20px;
+}
+
+.tg-button {
+    display: inline-block;
+    background-color: #0088cc;
+    color: white;
+    padding: 12px 24px;
+    border-radius: var(--border-radius);
+    text-decoration: none;
+    font-weight: bold;
+    transition: background-color 0.3s;
+}
+
+.tg-button:hover {
+    background-color: #007ab8;
+}
+
+.intro-image {
+    flex: 1 1 300px;
+    text-align: center;
+}
+
+.intro-image img {
+    max-width: 100%;
+    height: auto;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+}
+
+/* Мобильная адаптация */
+@media (max-width: 768px) {
+    .intro-section {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .intro-text h2 {
+        font-size: 1.6em;
+    }
+
+    .intro-text p {
+        font-size: 1em;
+    }
+
+    .tg-button {
+        width: 100%;
+        padding: 14px;
+        font-size: 1em;
+    }
+}
+
     </style>
 
 <!-- Yandex.Metrika counter -->
@@ -268,8 +346,22 @@
 
     <div class="container">
         <header>
-            <h1>Кэшбэкиус</h1>
-        </header>
+    <h1>Кэшбэкиус</h1>
+</header>
+
+<div class="intro-section">
+  <div class="intro-text">
+    <h2>CashbackiUS</h2>
+    <p>
+      Ваш гид по самым выгодным кэшбэк-акциям!<br>
+      Публикуем свежие предложения от разных банков, чтобы вы экономили больше каждый день.
+    </p>
+    <a class="tg-button" href="https://t.me/cashbackius" target="_blank">Подписаться на телеграм канал</a>
+  </div>
+  <div class="intro-image">
+    <img src="https://raw.githubusercontent.com/EmmaBlossom/new/main/image.png" alt="Cashback" />
+  </div>
+</div>
 
         <div class="filters">
             <div class="filter-group">
@@ -6726,13 +6818,14 @@
                     const card = document.createElement('div');
                     card.classList.add('card');
                     card.innerHTML = `
-                        <div class="card-content">
-                            <p>${item['Банк']}</p>
-                            <p>${item['Компания/бренд']}</p>
-                            <p>${item['Размер кэшбека/скидки']}</p>
-                            <p>${item['Даты проведения акции']}</p>
-                        </div>
-                    `;
+    <div class="card-content">
+        <img src="${getBankLogo(item['Банк'])}" alt="${item['Банк']}" style="height: 30px; margin-bottom: 10px;">
+        <p>${item['Банк']}</p>
+        <p>${item['Компания/бренд']}</p>
+        <p>${item['Размер кэшбека/скидки']}</p>
+        <p>${item['Даты проведения акции']}</p>
+    </div>
+`;
                     card.addEventListener('click', () => showDetails(item));
                     cardsContainer.appendChild(card);
                 });
@@ -6852,6 +6945,16 @@
             populateAllFilters(jsonData);
             displayCards([]);
         }
+        
+        function getBankLogo(bankName) {
+    const map = {
+        "Альфа-Банк": "alfa-bank.png",
+        "ВТБ": "vtb.png",
+        "Т-Банк": "t-bank.png"
+        // Добавьте другие банки по мере необходимости
+    };
+    return map[bankName] || "logos/default.png";
+}
         
         function showDetails(item) {
             document.getElementById('modal-brand').textContent = item['Компания/бренд'] || 'Нет данных';
