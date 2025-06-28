@@ -487,14 +487,13 @@
     </div>
 
     <script>
-        let jsonData = [];
+       let jsonData = [];
 
 fetch('https://emmablossom.github.io/new/data.json')
   .then(response => response.json())
   .then(data => {
     jsonData = data;
-    populateAllFilters(jsonData);
-    displayCards([]);
+  
   })
   .catch(error => {
     console.error('Ошибка загрузки данных:', error);
